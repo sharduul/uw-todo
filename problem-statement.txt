@@ -6,14 +6,16 @@ The following use cases are supported in this application -
 3. Add new list
 3. View tasks 
 4. Add task to a list 
-5. Edit task 
+5. Delete task 
 
 The application has been build with Angular 4.0 and Express.js Javascript frameworks. 
 A local Mongo database is used as the application database. 
 The complete project environment is available in a Linux emulator (on the right) where you can work on your code, execute it and interact with the app as well.
 
-The application is partially implemented and a "Task Edit" API has been provided for your use.
+The application is partially implemented and a "Task Delete" API has been provided for your use.
+
+Setup steps:
+- If not already present, create a task-card named "Task 1" on the board as the first card on the first list.
 
 Your task is to implement the use case #5 using the above API:
-- Clicking on the pencil icon should open a textarea on the card.
-- Task with name "Task 1" should be renamed as "New task 1".
+- Clicking on the delete icon should remove the "Task 1" card from the list.
