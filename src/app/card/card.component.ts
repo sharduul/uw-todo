@@ -54,6 +54,13 @@ export class CardComponent implements OnInit {
     }, 0);
   }
 
+  deleteCard(event) {
+    // event.stopPropagation();
+    // this._cardService.delete(this.card).then(res => {
+    //   console.log("card deleted");
+    // });
+  }
+
   updateCard() {
     if (!this.card.title || this.card.title.trim() === '') {
       this.card.title = this.currentTitle;

@@ -41,5 +41,11 @@
     font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
     line-height: 18px;
     margin: -2px;
+
+}
+
+.card .card-name {
+  display: flex;
+  justify-content: space-between;
 }
 

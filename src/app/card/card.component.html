@@ -2,8 +2,13 @@
     [attr.card-id]="card._id"
     [attr.card-order]="card.order"
     (click)="editCard()">
-    <span [innerHtml]="card.title" [style.display]="editingCard ? 'none' : ''">
-    </span>
+    <div class="card-name">
+        <span [innerHtml]="card.title" [style.display]="editingCard ? 'none' : ''">
+        </span>
+
+        <i class="fa fa-trash" (click)="deleteCard($event)"></i>
+    </div>
+    
     <textarea
         [style.display]="editingCard ? '' : 'none' "
         (keydown)="blurOnEnter($event)"

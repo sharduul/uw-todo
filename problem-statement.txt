@@ -15,7 +15,7 @@ The complete project environment is available in a Linux emulator (on the right)
 The application is partially implemented and a "Task Delete" API has been provided for your use.
 
 Setup steps:
-- If not already present, create a task-card named "Task 1" on the board as the first card on the first list.
+- If not already present, create a task-card named "Task 1" on the first list.
 
 Your task is to implement the use case #5 using the above API:
 - Clicking on the delete icon should remove the "Task 1" card from the list.
