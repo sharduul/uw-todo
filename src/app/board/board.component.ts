@@ -10,6 +10,7 @@ import { ColumnComponent } from '../column/column.component';
 import { OrderBy } from '../pipes/orderby.pipe';
 import { Where } from '../pipes/where.pipe';
 import { Router, Params, ActivatedRoute } from '@angular/router';
+//import * as _ from 'lodash';
 
 declare var jQuery: any;
 var curYPos = 0,
@@ -49,6 +50,21 @@ export class BoardComponent implements OnInit, OnDestroy {
     this._ws.onCardAdd.subscribe(card => {
       console.log('adding card from server');
       this.board.cards.push(card);
+    });
+
+    this._ws.onCardDelete.subscribe(card => {
+      console.log('deleting card from server');
+      console.log(card);
+
+      // let column = _.filter(this.board.columns, function(column){
+      //   return column.id == card.columnId;
+      // });
+
+      // _.remove(column.cards, function(item){
+      //   return item.id = card.id;
+      // });
+
+      //this.board.cards.push(card);
     });
 
     let boardId = this._route.snapshot.params['id'];

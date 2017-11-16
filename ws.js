@@ -45,6 +45,12 @@ module.exports = function(server, origins) {
                 .emit("updateCard", data);
         });
 
+        socket.on('deleteCard', function(data) {
+            log('deleteCard: ', data);
+            socket.broadcast.to(data.boardId)
+                .emit("deleteCard", data);
+        });
+
         socket.on('disconnect', function() {
             log('disconnecting');
         });
