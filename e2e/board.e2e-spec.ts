@@ -1,14 +1,20 @@
 import { BoardPage } from './board.po';
+import { browser, element, by } from 'protractor';
 
 describe('Board', function() {
   let page: BoardPage;
+  page = new BoardPage();
 
   beforeEach(() => {
-    page = new BoardPage();
+    page.navigateTo();
+    browser.ignoreSynchronization = true;
+  });
+
+  afterEach(function() {
+    browser.ignoreSynchronization = false;
   });
 
   it('should display board title', () => {
-    page.navigateTo();
-    expect(page.getBoardTitle()).toEqual('New Board');
+    expect(page.getBoardTitle()).toEqual('New board');
   });
 });
