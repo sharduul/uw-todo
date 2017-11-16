@@ -9,6 +9,6 @@ describe('a2gtm App', function() {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getBoardTitle()).toEqual('Boards');
+    expect(page.getBoardWrapperTitle()).toEqual('Boards');
   });
 });

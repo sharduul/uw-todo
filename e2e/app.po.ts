@@ -9,7 +9,7 @@ export class A2gtmPage {
     return element(by.css('app-root h1')).getText();
   }
 
-  getBoardTitle(){
+  getBoardWrapperTitle(){
     return element(by.css('.boards-wrapper h2')).getText();
   }
 }
