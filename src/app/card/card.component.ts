@@ -56,10 +56,10 @@ export class CardComponent implements OnInit {
 
   deleteCard(event) {
     event.stopPropagation();
-    //this._cardService.delete(this.card).then(res => {
+    this._cardService.delete(this.card).then(res => {
       console.log("card deleted");
-      this._ws.deleteCard(this.card.columnId, this.card);
-    //});
+      this._ws.deleteCard(this.card);
+    });
   }
 
   updateCard() {

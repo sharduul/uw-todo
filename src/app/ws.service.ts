@@ -69,12 +69,7 @@ export class WebSocketService {
     io.sockets.emit('updateCard', { boardId: boardId, card: card });
   }
 
-  deleteCard(columnId: string, card: Card) {
-    // let data = {
-    //   card: card,
-    //   columnId: columnId
-    // };
-
+  deleteCard(card: Card) {
     console.log(card);
     this.onCardDelete.emit(card);
   }
