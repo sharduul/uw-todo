@@ -1,9 +1,10 @@
 import { BoardPage } from './board.po';
-import { browser, element, by } from 'protractor';
+import { browser, element, by, protractor } from 'protractor';
 
 describe('Board', function() {
   let page: BoardPage;
   page = new BoardPage();
+  let EC = protractor.ExpectedConditions;
 
   beforeEach(() => {
     page.navigateTo();
@@ -17,4 +18,29 @@ describe('Board', function() {
   it('should display board title', () => {
     expect(page.getBoardTitle()).toEqual('New board');
   });
+
+  it('should add card to the board', function () {
+    let cardName = "New Card";
+
+    browser.wait(EC.visibilityOf(page.addCardBtn), 5000);
+
+    var originalCount = 0;
+    page.cardList.count().then(function (count) {
+        originalCount = count;
+    });
+
+    page.addCardBtn.click();
+
+    browser.wait(EC.visibilityOf(page.addCardInp), 5000);
+    page.setInput(page.addCardInp, cardName);
+    browser.actions().sendKeys(protractor.Key.ENTER).perform();
+
+    browser.wait(EC.visibilityOf(page.getCardWithName(cardName)), 5000);
+    page.cardList.count().then(function (count) {
+        expect(count).toEqual(originalCount + 1);
+    });
+
+  });
+
+
 });
