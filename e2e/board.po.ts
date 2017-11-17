@@ -3,11 +3,13 @@ import { browser, element, by, protractor } from 'protractor';
 export class BoardPage {
   addCardInp: any;
   addCardBtn: any;
+  deleteCardBtn: any;
   cardList: any;
 
   constructor() {
     this.addCardInp = element.all(by.css('div.add-card .add-card-input')).first();
     this.addCardBtn = element.all(by.css('div.add-card')).first();
+    this.deleteCardBtn = element.all(by.css('div.card-name .card-delete-btn')).first();
     this.cardList = element.all(by.css('.card-list li'));
   }
 

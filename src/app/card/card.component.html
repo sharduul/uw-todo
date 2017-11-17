@@ -6,7 +6,7 @@
         <span [innerHtml]="card.title" [style.display]="editingCard ? 'none' : ''">
         </span>
 
-        <i class="fa fa-trash" (click)="deleteCard($event)"></i>
+        <i class="fa fa-trash card-delete-btn" (click)="deleteCard($event)"></i>
     </div>
     
     <textarea
