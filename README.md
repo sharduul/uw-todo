@@ -27,3 +27,16 @@ $ ng serve
 ```sh
 $ node app
 ```
+
+
+### Run test server
+```sh
+$ npm install -g protractor
+$ webdriver-manager update
+$ webdriver-manager start
+```
+
+### Run Tests
+```sh
+$ protractor protractor.conf.js
+```
