@@ -6,7 +6,7 @@ export class BoardPage {
   cardList: any;
 
   constructor() {
-    this.addCardInp = element(by.css('div.add-card .add-card-input'));
+    this.addCardInp = element.all(by.css('div.add-card .add-card-input')).first();
     this.addCardBtn = element.all(by.css('div.add-card')).first();
     this.cardList = element.all(by.css('.card-list li'));
   }

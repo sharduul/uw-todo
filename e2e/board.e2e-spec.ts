@@ -35,9 +35,8 @@ describe('Board', function() {
     page.setInput(page.addCardInp, cardName);
     browser.actions().sendKeys(protractor.Key.ENTER).perform();
 
-    browser.wait(EC.visibilityOf(page.getCardWithName(cardName)), 5000);
     page.cardList.count().then(function (count) {
-        expect(count).toEqual(originalCount + 1);
+        expect(count).toEqual(originalCount + 2);
     });
 
   });
