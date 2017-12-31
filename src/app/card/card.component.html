@@ -32,4 +32,12 @@
             (blur)="updateCard()"
             [(ngModel)]="card.description" ></textarea>
     </div>
+
+    <div class="card-description">
+        <label>Start Date</label>
+        <input type="date" name="startDate" 
+            (keydown)="blurOnEnter($event)"
+            (blur)="updateCard()"
+            [(ngModel)]="card.startDate">
+    </div>
 </div>

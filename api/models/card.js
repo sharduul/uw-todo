@@ -4,6 +4,8 @@ mongoose.Promise = global.Promise;
 var cardSchema = mongoose.Schema({
     title: String,
     description: String,
+    startDate: String,
+    endDate: String,
     columnId: String,
     boardId: String,
     order: Number
