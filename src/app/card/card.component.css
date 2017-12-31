@@ -49,6 +49,14 @@
   justify-content: space-between;
 }
 
+.card-actions {
+  display: flex;
+}
+
+.card-actions i {
+  padding-left: 10px;
+}
+
 .card-details {
   display: flex;
   margin-top: -10px;
