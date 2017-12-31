@@ -29,7 +29,7 @@ describe('Nightmare demo', function () {
         it('should add card to the board', function (done) {
             var originalCount = 0;
             var newCount = 0;
-            var nightmare = Nightmare({ show: false })
+            var nightmare = Nightmare({ show: true })
 
             nightmare
                 .goto(url)
@@ -55,7 +55,34 @@ describe('Nightmare demo', function () {
                         })
                 })
         });
-    });
 
+        it('should delete card from the board', function (done) {
+            var originalCount = 0;
+            var newCount = 0;
+            var nightmare = Nightmare({ show: false })
+
+            nightmare
+                .goto(url)
+                .wait('.card-list li.card')
+                .evaluate(function () {
+                    originalCount = document.querySelectorAll('.card-list li.card').length;
+                    return originalCount;
+                })
+                .then(function () {
+                    nightmare
+                        .wait('div.card-name .card-delete-btn')
+                        .click('div.card-name .card-delete-btn')
+                        .evaluate(function () {
+                            newCount = document.querySelectorAll('.card-list li.card').length;
+                            return newCount;
+                        })
+                        .then(function () {
+                            expect(newCount).to.equal(0);
+                            done();
+                        })
+                })
+        });
+
+    });
    
 });
