@@ -49,3 +49,22 @@
   justify-content: space-between;
 }
 
+.card-details {
+  display: flex;
+  margin-top: -10px;
+  padding: 10px;
+  background: white;
+  border-top: 1px solid #e2e2e2;
+}
+
+.card-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-details .description {
+  width: 100%;
+}
+
+
+

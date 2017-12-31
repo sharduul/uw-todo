@@ -21,9 +21,13 @@
         [(ngModel)]="card.title" ></textarea>
     
 </li>
-<div [style.display]="editingCardDetails ? '' : 'none' ">
-    <textarea
-        (keydown)="blurOnEnter($event)"
-        (blur)="updateCard()"
-        [(ngModel)]="card.description" ></textarea>
+<div class="card-details" [style.display]="editingCardDetails ? '' : 'none' ">
+    <div class="card-description">
+        <label>Description</label>
+        <textarea
+            class="description"
+            (keydown)="blurOnEnter($event)"
+            (blur)="updateCard()"
+            [(ngModel)]="card.description" ></textarea>
+    </div>
 </div>
