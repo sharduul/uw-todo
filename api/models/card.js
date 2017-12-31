@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise;
 
 var cardSchema = mongoose.Schema({
     title: String,
+    description: String,
     columnId: String,
     boardId: String,
     order: Number

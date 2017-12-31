@@ -14,6 +14,7 @@ export class CardComponent implements OnInit {
   card: Card;
   @Output() cardUpdate: EventEmitter<Card>;
   editingCard = false;
+  editingCardDetails = false;
   currentTitle: string;
   zone: NgZone;
   constructor(private el: ElementRef,
@@ -62,6 +63,11 @@ export class CardComponent implements OnInit {
     });
   }
 
+  editCardDetails(event) {
+    event.stopPropagation();
+    this.editingCardDetails = !this.editingCardDetails;
+  }
+
   updateCard() {
     if (!this.card.title || this.card.title.trim() === '') {
       this.card.title = this.currentTitle;
@@ -70,6 +76,7 @@ export class CardComponent implements OnInit {
     this._cardService.put(this.card).then(res => {
       this._ws.updateCard(this.card.boardId, this.card);
     });
+
     this.editingCard = false;
   }
 
