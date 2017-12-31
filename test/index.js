@@ -14,11 +14,11 @@ describe('Nightmare demo', function () {
                 .goto(url)
                 .evaluate(function () {
                     return document.querySelectorAll('app-root h1').length;
-                }, function (result) {
+                })
+                .run(function(err, result){
                     result.should.equal(1);
                     done();
-                })
-                .run();
+                });
         });
     });
 
