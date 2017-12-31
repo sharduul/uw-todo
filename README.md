@@ -40,3 +40,11 @@ $ webdriver-manager start
 ```sh
 $ protractor protractor.conf.js
 ```
+
+### Run Nightmarejs Tests
+- goto root directory
+
+```sh
+$ mocha
+```
+
