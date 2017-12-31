@@ -24,7 +24,7 @@
     
 </li>
 <div class="card-details" [style.display]="editingCardDetails ? '' : 'none' ">
-    <div class="card-description">
+    <div class="input-group card-description">
         <label>Description</label>
         <textarea
             class="description"
@@ -33,9 +33,10 @@
             [(ngModel)]="card.description" ></textarea>
     </div>
 
-    <div class="card-description">
+    <div class="input-group card-description">
         <label>Start Date</label>
         <input type="date" name="startDate" 
+            class="date-picker"
             (keydown)="blurOnEnter($event)"
             (blur)="updateCard()"
             [(ngModel)]="card.startDate">
