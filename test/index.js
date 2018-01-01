@@ -24,7 +24,7 @@ describe('Nightmare demo', function () {
     });
 
     describe('Board page', function () {
-        url = 'http://localhost:4200/b/5a49314288c29bcc59edd40b';
+        url = 'http://localhost:4200/b/5a4966560f5748ddf0b3e726';
 
         // it('should add card to the board', function (done) {
         //     var originalCount = 0;
@@ -84,8 +84,47 @@ describe('Nightmare demo', function () {
         // });
 
 
-        it('should add description to card', function (done) {
-            var nightmare = Nightmare({ show: false })
+        // it('should add description to card', function (done) {
+        //     var nightmare = Nightmare({ show: false })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('textarea.description')
+        //         .evaluate(function () {
+        //             var elements = document.querySelectorAll('textarea.description');
+        //             elements[0].value = ""; // clear description
+        //         })
+        //         .type('textarea.description', 'test')
+        //         .type('body', '\u000d') // enter key
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var elements = document.querySelectorAll('.card-edit-btn');
+        //                     elements[0].click();
+        //                 })
+        //                 .wait('textarea.description')
+        //                 .evaluate(function () {
+        //                     var elements = document.querySelectorAll('textarea.description');
+        //                     return elements[0].value;
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("test");
+        //                     done();
+        //                 })
+        //         })
+        // });
+
+        it('should add start date to card', function (done) {
+            var nightmare = Nightmare({ show: true })
 
             nightmare
                 .goto(url)
@@ -94,12 +133,12 @@ describe('Nightmare demo', function () {
                     var elements = document.querySelectorAll('.card-edit-btn');
                     elements[0].click();
                 })
-                .wait('textarea.description')
+                .wait('.date-picker')
                 .evaluate(function () {
-                    var elements = document.querySelectorAll('textarea.description');
+                    var elements = document.querySelectorAll('.date-picker');
                     elements[0].value = ""; // clear description
                 })
-                .type('textarea.description', 'test')
+                .type('.date-picker', '01/01/2001')
                 .type('body', '\u000d') // enter key
                 .evaluate(()=>{
                     var elements = document.querySelectorAll('.card-edit-btn');
@@ -111,13 +150,13 @@ describe('Nightmare demo', function () {
                             var elements = document.querySelectorAll('.card-edit-btn');
                             elements[0].click();
                         })
-                        .wait('textarea.description')
+                        .wait('.date-picker')
                         .evaluate(function () {
-                            var elements = document.querySelectorAll('textarea.description');
+                            var elements = document.querySelectorAll('.date-picker');
                             return elements[0].value;
                         })
                         .then(function (value) {
-                            expect(value).to.equal("test");
+                            expect(value).to.equal("2001-01-01");
                             done();
                         })
                 })
