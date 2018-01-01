@@ -41,4 +41,16 @@
             (blur)="updateCard()"
             [(ngModel)]="card.startDate">
     </div>
+
+    <div class="input-group card-description">
+        <button class="btn btn-primary" 
+            *ngIf="!card.isDone"
+            (click)="markDone()"
+            type="submit">Mark as Done</button>
+
+        <button class="btn btn-primary"
+            *ngIf="card.isDone" 
+            (click)="markDone()"
+            type="submit">Mark as Todo</button>
+    </div>
 </div>

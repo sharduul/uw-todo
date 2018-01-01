@@ -6,6 +6,7 @@ var cardSchema = mongoose.Schema({
     description: String,
     startDate: String,
     endDate: String,
+    isDone: Boolean,
     columnId: String,
     boardId: String,
     order: Number

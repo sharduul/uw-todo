@@ -63,6 +63,11 @@ export class CardComponent implements OnInit {
     });
   }
 
+  markDone(event) {
+    this.card.isDone = !this.card.isDone;
+    this.updateCard();
+  }
+
   editCardDetails(event) {
     event.stopPropagation();
     this.editingCardDetails = !this.editingCardDetails;
