@@ -33,7 +33,7 @@
             [(ngModel)]="card.description" ></textarea>
     </div>
 
-    <div class="input-group card-description">
+    <div class="input-group card-startDate">
         <label>Start Date</label>
         <input type="date" name="startDate" 
             class="date-picker"
@@ -42,7 +42,7 @@
             [(ngModel)]="card.startDate">
     </div>
 
-    <div class="input-group card-description">
+    <div class="input-group card-done">
         <button class="btn btn-primary" 
             *ngIf="!card.isDone"
             (click)="markDone()"

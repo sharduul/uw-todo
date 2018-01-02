@@ -24,7 +24,7 @@ describe('Nightmare demo', function () {
     });
 
     describe('Board page', function () {
-        url = 'http://localhost:4200/b/5a4966560f5748ddf0b3e726';
+        url = 'http://localhost:4200/b/5a0c571d6b5b743454fac770';
 
         // it('should add card to the board', function (done) {
         //     var originalCount = 0;
@@ -123,7 +123,47 @@ describe('Nightmare demo', function () {
         //         })
         // });
 
-        it('should add start date to card', function (done) {
+        // it('should add start date to card', function (done) {
+        //     var nightmare = Nightmare({ show: true })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('.date-picker')
+        //         .evaluate(function () {
+        //             var elements = document.querySelectorAll('.date-picker');
+        //             elements[0].value = ""; // clear description
+        //         })
+        //         .type('.date-picker', '01/01/2001')
+        //         .type('body', '\u000d') // enter key
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var elements = document.querySelectorAll('.card-edit-btn');
+        //                     elements[0].click();
+        //                 })
+        //                 .wait('.date-picker')
+        //                 .evaluate(function () {
+        //                     var elements = document.querySelectorAll('.date-picker');
+        //                     return elements[0].value;
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("2001-01-01");
+        //                     done();
+        //                 })
+        //         })
+        // });
+
+
+        it('should mark card as done', function (done) {
             var nightmare = Nightmare({ show: true })
 
             nightmare
@@ -133,15 +173,9 @@ describe('Nightmare demo', function () {
                     var elements = document.querySelectorAll('.card-edit-btn');
                     elements[0].click();
                 })
-                .wait('.date-picker')
-                .evaluate(function () {
-                    var elements = document.querySelectorAll('.date-picker');
-                    elements[0].value = ""; // clear description
-                })
-                .type('.date-picker', '01/01/2001')
-                .type('body', '\u000d') // enter key
+                .wait('.card-done')
                 .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-edit-btn');
+                    var elements = document.querySelectorAll('.card-done');
                     elements[0].click();
                 })
                 .then(function () {
@@ -150,13 +184,13 @@ describe('Nightmare demo', function () {
                             var elements = document.querySelectorAll('.card-edit-btn');
                             elements[0].click();
                         })
-                        .wait('.date-picker')
+                        .wait('.card-done')
                         .evaluate(function () {
-                            var elements = document.querySelectorAll('.date-picker');
-                            return elements[0].value;
+                            var elements = document.querySelectorAll('.card-done');
+                            return elements[0].textContent.trim() || elements[0].innerText.trim();
                         })
                         .then(function (value) {
-                            expect(value).to.equal("2001-01-01");
+                            expect(value).to.equal("Mark as Done");
                             done();
                         })
                 })
