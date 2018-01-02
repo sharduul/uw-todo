@@ -124,7 +124,7 @@ describe('Nightmare demo', function () {
         });
 
         it('should add start date to card', function (done) {
-            var nightmare = Nightmare({ show: true })
+            var nightmare = Nightmare({ show: false })
 
             nightmare
                 .goto(url)
@@ -164,7 +164,7 @@ describe('Nightmare demo', function () {
 
 
         it('should mark card as done', function (done) {
-            var nightmare = Nightmare({ show: true })
+            var nightmare = Nightmare({ show: false })
 
             nightmare
                 .goto(url)
