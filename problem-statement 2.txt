@@ -1,0 +1,19 @@
+You have been given a Task Management app (a "todo" list app). 
+The following use cases are supported in this application - 
+
+1. View the task board
+2. View lists of tasks
+3. Add new list
+3. View tasks 
+4. Add task to a list 
+5. Add task description
+
+The application has been build with Angular 4.0 and Express.js Javascript frameworks. 
+A local Mongo database is used as the application database. 
+The complete project environment is available in a Linux emulator (on the right) where you can work on your code, execute it and interact with the app as well.
+
+The application is partially implemented and a "Task Update" API has been provided for your use.
+
+Your task is to implement the use case #5 using the above API:
+- Clicking on the pencil should open task details
+- Adding description should save it to the database
