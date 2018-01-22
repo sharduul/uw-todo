@@ -25,6 +25,35 @@ describe('Nightmare demo', function () {
 
     describe('Board page', function () {
         url = 'http://localhost:4200/b/5a0c571d6b5b743454fac770';
+        //url = 'http://localhost:4200/';
+
+        // before(function (done) {
+
+        //     var nightmare = Nightmare({ show: false })
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.boards-wrapper .board')
+        //         .evaluate(function () {
+        //             originalCount = document.querySelectorAll('.boards-wrapper .board').length;
+        //             return originalCount;
+        //         })
+        //         .then(function (originalCount) {
+        //             if(originalCount < 2){
+                        
+        //             }
+        //             else {
+        //                 nightmare
+        //                     .wait('.boards-wrapper .board')
+        //                     .click('.boards-wrapper .board')
+        //                     .then(function () {
+        //                         done();
+        //                     })
+        //             }
+        //         })
+
+        // });
+
+
 
         it('should add card to the board', function (done) {
             var originalCount = 0;
@@ -33,12 +62,15 @@ describe('Nightmare demo', function () {
 
             nightmare
                 .goto(url)
-                .wait('.card-list li.card')
+                .wait('.card-list')
                 .evaluate(function () {
                     originalCount = document.querySelectorAll('.card-list li.card').length;
                     return originalCount;
                 })
                 .then(function (originalCount) {
+
+                    console.log(originalCount);
+
                     nightmare
                         .wait('div.add-card')
                         .click('div.add-card')
@@ -63,7 +95,7 @@ describe('Nightmare demo', function () {
 
             nightmare
                 .goto(url)
-                .wait('.card-list li.card')
+                .wait('.card-list')
                 .evaluate(function () {
                     originalCount = document.querySelectorAll('.card-list li.card').length;
                     return originalCount;
