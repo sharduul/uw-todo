@@ -57,6 +57,11 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.board.cards = this.board.cards.filter(item => item._id != card._id);
     });
 
+    this._ws.onColumnDelete.subscribe(column => {
+      console.log('deleting column from server');
+      this.board.columns = this.board.columns.filter(item => item._id != column._id);
+    });
+
     let boardId = this._route.snapshot.params['id'];
 
     //let boardId = this._routeParams.get('id');

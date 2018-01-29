@@ -10,6 +10,11 @@
             (blur)="updateColumnOnBlur()"
             (keyup)="addColumnOnEnter($event)"
             [(ngModel)]="column.title" />
+
+        <div class="column-actions">
+            <i class="fa fa-trash column-delete-btn" (click)="deleteColumn($event)" 
+                [style.display]="editingColumn ? 'none' : ''"></i>
+        </div>
     </div>
     <ul class="card-list" [attr.column-id]="column._id">
         <li *ngFor="let card of cards | where : { columnId: column._id } | orderBy : 'order'">

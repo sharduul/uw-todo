@@ -12,6 +12,7 @@ export class WebSocketService {
   public onColumnAdd: EventEmitter<Column>;
   public onCardAdd: EventEmitter<Card>;
   public onColumnUpdate: EventEmitter<Column>;
+  public onColumnDelete: EventEmitter<Column>;
   public onCardUpdate: EventEmitter<Card>;
   public onCardDelete: EventEmitter<Card>;
 
@@ -19,6 +20,7 @@ export class WebSocketService {
     this.onColumnAdd = new EventEmitter();
     this.onCardAdd = new EventEmitter();
     this.onColumnUpdate = new EventEmitter();
+    this.onColumnDelete = new EventEmitter();
     this.onCardUpdate = new EventEmitter();
     this.onCardDelete = new EventEmitter();
   }
@@ -35,6 +37,10 @@ export class WebSocketService {
     this.socket.on('updateColumn', data => {
       this.onColumnUpdate.emit(<Column>data.column);
     });
+    this.socket.on('deleteColumn', data => {
+      console.log(data);
+      this.onColumnDelete.emit(<Card>data.card);
+    });
     this.socket.on('updateCard', data => {
       console.log("asdfdsa");
       this.onCardUpdate.emit(<Card>data.card);
@@ -43,6 +49,7 @@ export class WebSocketService {
       console.log(data);
       this.onCardDelete.emit(<Card>data.card);
     });
+    
   }
 
   join(boardId: string) {
@@ -63,6 +70,11 @@ export class WebSocketService {
 
   updateColumn(boardId: string, column: Column) {
     this.socket.emit('updateColumn', { boardId: boardId, column: column });
+  }
+
+  deleteColumn(column: Column) {
+    console.log(column);
+    this.onColumnDelete.emit(column);
   }
 
   updateCard(boardId: string, card: Card) {

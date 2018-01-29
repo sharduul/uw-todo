@@ -73,6 +73,14 @@ export class ColumnComponent implements OnInit {
     jQuery('.card-list').disableSelection();
   }
 
+  deleteColumn(event) {
+    event.stopPropagation();
+    this._columnService.delete(this.column).then(res => {
+      console.log("column deleted");
+      this._ws.deleteColumn(this.column);
+    });
+  }
+
   updateCardsOrder(event) {
     let cardArr = jQuery('[column-id=' + event.columnId + '] .card'),
       i: number = 0,
