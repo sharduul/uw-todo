@@ -24,6 +24,18 @@
     
 </li>
 <div class="card-details" [style.display]="editingCardDetails ? '' : 'none' ">
+    <div class="input-group card-effort">
+        <label>Effort</label>
+        <select class="form-control" name="status" 
+            (change)="updateCard()" [(ngModel)]="card.effort">
+            <option  [value]="2" [selected]="card.effort == 2">2</option>
+            <option  [value]="3" [selected]="card.effort == 3">3</option>
+            <option  [value]="5" [selected]="card.effort == 5">5</option>
+            <option  [value]="8" [selected]="card.effort == 8">8</option>
+            <option  [value]="13" [selected]="card.effort == 13">13</option>
+        </select>
+    </div>
+
     <div class="input-group card-description">
         <label>Description</label>
         <textarea
@@ -53,4 +65,5 @@
             (click)="markDone()"
             type="submit">Mark as Todo</button>
     </div>
+
 </div>

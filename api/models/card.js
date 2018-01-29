@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise;
 
 var cardSchema = mongoose.Schema({
     title: String,
+    effort: Number,
     description: String,
     startDate: String,
     endDate: String,
