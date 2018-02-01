@@ -11,9 +11,14 @@
             (keyup)="addColumnOnEnter($event)"
             [(ngModel)]="column.title" />
 
-        <div class="column-actions">
-            <i class="fa fa-trash column-delete-btn" (click)="deleteColumn($event)" 
+        <div class="column-actions custom-dropdown">
+            <i class="fa fa-pencil column-actions" (click)="toggleActions($event)" 
                 [style.display]="editingColumn ? 'none' : ''"></i>
+
+            <div class="_actions-dropdown" *ngIf="isShowActions">
+                <div class="_item" (click)="cloneColumn($event)">Clone</div>
+                <div class="_item" (click)="deleteColumn($event)">Delete</div>
+            </div>
         </div>
     </div>
     <ul class="card-list" [attr.column-id]="column._id">

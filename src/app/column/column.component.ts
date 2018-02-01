@@ -28,6 +28,7 @@ export class ColumnComponent implements OnInit {
   addingCard = false;
   addCardText: string;
   currentTitle: string;
+  isShowActions: boolean;
 
   constructor(private el: ElementRef,
     private _ws: WebSocketService,
@@ -225,5 +226,9 @@ export class ColumnComponent implements OnInit {
 
   onCardUpdate(card: Card){
     this.cardUpdate.emit(card);
+  }
+
+  toggleActions(){
+    this.isShowActions = !this.isShowActions;
   }
 }

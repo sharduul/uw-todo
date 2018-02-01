@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+
 // PROVIDERS
 import { BoardService } from './board/board.service';
 import { CardService } from './card/card.service';
