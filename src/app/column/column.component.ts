@@ -1,5 +1,6 @@
 import {Component, Input, Output, OnInit, AfterViewInit, EventEmitter, ElementRef} from '@angular/core';
 import {Column} from './column';
+import { Board } from '../board/board';
 import {Card} from '../card/card';
 import {CardComponent} from '../card/card.component'
 import {ColumnService} from './column.service';
@@ -18,6 +19,8 @@ declare var jQuery: any;
 export class ColumnComponent implements OnInit {
   @Input()
   column: Column;
+  @Input()
+  board: Board;
   @Input()
   cards: Card[];
   @Output()
@@ -80,6 +83,23 @@ export class ColumnComponent implements OnInit {
       console.log("column deleted");
       this._ws.deleteColumn(this.column);
     });
+  }
+
+  copyColumn(event) {
+    event.stopPropagation();
+    this.toggleActions();
+
+    let newColumn = <Column>{
+      title: this.column.title,
+      order: (this.board.columns.length + 1) * 1000,
+      boardId: this.board._id
+    };
+
+    this._columnService.post(newColumn)
+      .subscribe(column => {
+        console.log('column copied');
+        this._ws.addColumn(this.board._id, column);
+      });
   }
 
   updateCardsOrder(event) {

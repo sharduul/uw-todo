@@ -62,6 +62,7 @@ export class WebSocketService {
 
   addColumn(boardId:string, column: Column){
     this.socket.emit('addColumn', { boardId: boardId, column: column });
+    this.onColumnAdd.emit(<Column>column);
   }
 
   addCard(boardId: string, card: Card) {
