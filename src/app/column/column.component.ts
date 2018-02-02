@@ -102,6 +102,35 @@ export class ColumnComponent implements OnInit {
       });
   }
 
+  sort(event, code){
+    event.stopPropagation();
+    this.toggleActions();
+
+    var prop = "title";
+    var sortFn = (a, b) => { 
+      if (a[prop] < b[prop])
+        return -1;
+      if ( a[prop] > b[prop])
+        return 1;
+      return 0;
+    }
+
+    switch(code){
+      case "start_date": 
+        prop = "startDate";
+        this.cards.sort(sortFn); 
+        break;
+      case "title": 
+        prop = "title";
+        this.cards = this.cards.sort(sortFn); 
+        break;
+    }
+
+    for(let i = 0; i < this.cards.length; i++){
+      this.cards[i].order = (i+1) * 1000;
+    }
+  }
+
   updateCardsOrder(event) {
     let cardArr = jQuery('[column-id=' + event.columnId + '] .card'),
       i: number = 0,

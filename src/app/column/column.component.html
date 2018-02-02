@@ -18,6 +18,8 @@
             <div class="_actions-dropdown" *ngIf="isShowActions">
                 <div class="_item" (click)="copyColumn($event)">Copy</div>
                 <div class="_item" (click)="deleteColumn($event)">Delete</div>
+                <div class="_item" (click)="sort($event, 'start_date')">Sort By Start Date</div>
+                <div class="_item" (click)="sort($event, 'title')">Sort By Title</div>
             </div>
         </div>
     </div>
