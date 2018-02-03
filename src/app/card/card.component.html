@@ -11,6 +11,9 @@
             <i class="fa fa-trash card-delete-btn" (click)="deleteCard($event)" 
                 [style.display]="editingCard ? 'none' : ''"></i>
 
+            <i class="fa fa-copy card-delete-btn" (click)="copy($event)" 
+                [style.display]="editingCard ? 'none' : ''"></i>
+
             <i class="fa fa-pencil card-edit-btn" (click)="editCardDetails($event)" 
                 [style.display]="editingCard ? 'none' : ''"></i>
         </div>

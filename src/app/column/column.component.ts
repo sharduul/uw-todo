@@ -187,6 +187,15 @@ export class ColumnComponent implements OnInit {
     }
   }
 
+  cardCopy(newCard: Card) {
+    newCard.order = (this.cards.length + 1) * 1000;
+    this._cardService.post(newCard)
+      .subscribe(card => {
+        this.onAddCard.emit(card);
+        this._ws.addCard(card.boardId, card);
+      });
+  }
+
   addCard() {
     this.cards = this.cards || [];
     let newCard = <Card>{

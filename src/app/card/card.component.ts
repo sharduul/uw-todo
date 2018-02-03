@@ -10,9 +10,10 @@ import {WebSocketService} from '../ws.service';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit {
-  @Input()
-  card: Card;
+  @Input() card: Card;
   @Output() cardUpdate: EventEmitter<Card>;
+  @Output() public onCardCopy: EventEmitter<Card>;
+
   editingCard = false;
   editingCardDetails = false;
   currentTitle: string;
@@ -23,6 +24,7 @@ export class CardComponent implements OnInit {
     private _cardService: CardService) {
     this.zone = new NgZone({ enableLongStackTrace: false });
     this.cardUpdate = new EventEmitter();
+    this.onCardCopy = new EventEmitter();
   }
 
   ngOnInit() {
@@ -62,6 +64,24 @@ export class CardComponent implements OnInit {
       this._ws.deleteCard(this.card);
     });
   }
+
+  copy(event){
+    event.stopPropagation();
+
+    let newCard = <Card>{
+      title: this.card.title,
+      description: this.card.description,
+      boardId: this.card.boardId,
+      columnId: this.card.columnId,
+      effort: this.card.effort,
+      startDate: this.card.startDate,
+      endDate: this.card.endDate
+    };
+
+    this.onCardCopy.emit(newCard);
+
+  }
+
 
   markDone(event) {
     this.card.isDone = !this.card.isDone;
