@@ -55,68 +55,182 @@ describe('Nightmare demo', function () {
 
 
 
-        it('should add card to the board', function (done) {
-            var originalCount = 0;
-            var newCount = 0;
-            var nightmare = Nightmare({ show: false })
+        // it('should add card to the board', function (done) {
+        //     var originalCount = 0;
+        //     var newCount = 0;
+        //     var nightmare = Nightmare({ show: false })
 
-            nightmare
-                .goto(url)
-                .wait('.card-list')
-                .evaluate(function () {
-                    originalCount = document.querySelectorAll('.card-list li.card').length;
-                    return originalCount;
-                })
-                .then(function (originalCount) {
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-list')
+        //         .evaluate(function () {
+        //             originalCount = document.querySelectorAll('.card-list li.card').length;
+        //             return originalCount;
+        //         })
+        //         .then(function (originalCount) {
 
-                    console.log(originalCount);
+        //             console.log(originalCount);
 
-                    nightmare
-                        .wait('div.add-card')
-                        .click('div.add-card')
-                        .wait('div.add-card .add-card-input')
-                        .type('div.add-card .add-card-input', 'github nightmare')
-                        .type('body', '\u000d') // enter key
-                        .evaluate(function () {
-                            newCount = document.querySelectorAll('.card-list li.card').length;
-                            return newCount;
-                        })
-                        .then(function (newCount) {
-                            expect(newCount).to.equal(originalCount + 1);
-                            done();
-                        })
-                })
-        });
+        //             nightmare
+        //                 .wait('div.add-card')
+        //                 .click('div.add-card')
+        //                 .wait('div.add-card .add-card-input')
+        //                 .type('div.add-card .add-card-input', 'github nightmare')
+        //                 .type('body', '\u000d') // enter key
+        //                 .evaluate(function () {
+        //                     newCount = document.querySelectorAll('.card-list li.card').length;
+        //                     return newCount;
+        //                 })
+        //                 .then(function (newCount) {
+        //                     expect(newCount).to.equal(originalCount + 1);
+        //                     done();
+        //                 })
+        //         })
+        // });
 
-        it('should delete card from the board', function (done) {
-            var originalCount = 0;
-            var newCount = 0;
-            var nightmare = Nightmare({ show: false })
+        // it('should delete card from the board', function (done) {
+        //     var originalCount = 0;
+        //     var newCount = 0;
+        //     var nightmare = Nightmare({ show: false })
 
-            nightmare
-                .goto(url)
-                .wait('.card-list')
-                .evaluate(function () {
-                    originalCount = document.querySelectorAll('.card-list li.card').length;
-                    return originalCount;
-                })
-                .then(function () {
-                    nightmare
-                        .wait('div.card-name .card-delete-btn')
-                        .click('div.card-name .card-delete-btn')
-                        .evaluate(function () {
-                            newCount = document.querySelectorAll('.card-list li.card').length;
-                            return newCount;
-                        })
-                        .then(function () {
-                            expect(newCount).to.equal(0);
-                            done();
-                        })
-                })
-        });
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-list')
+        //         .evaluate(function () {
+        //             originalCount = document.querySelectorAll('.card-list li.card').length;
+        //             return originalCount;
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .wait('div.card-name .card-delete-btn')
+        //                 .click('div.card-name .card-delete-btn')
+        //                 .evaluate(function () {
+        //                     newCount = document.querySelectorAll('.card-list li.card').length;
+        //                     return newCount;
+        //                 })
+        //                 .then(function () {
+        //                     expect(newCount).to.equal(0);
+        //                     done();
+        //                 })
+        //         })
+        // });
 
 
-        it('should add description to card', function (done) {
+        // it('should add description to card', function (done) {
+        //     var nightmare = Nightmare({ show: false })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('textarea.description')
+        //         .evaluate(function () {
+        //             var elements = document.querySelectorAll('textarea.description');
+        //             elements[0].value = ""; // clear description
+        //         })
+        //         .type('textarea.description', 'test')
+        //         .type('body', '\u000d') // enter key
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var elements = document.querySelectorAll('.card-edit-btn');
+        //                     elements[0].click();
+        //                 })
+        //                 .wait('textarea.description')
+        //                 .evaluate(function () {
+        //                     var elements = document.querySelectorAll('textarea.description');
+        //                     return elements[0].value;
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("test");
+        //                     done();
+        //                 })
+        //         })
+        // });
+
+        // it('should add start date to card', function (done) {
+        //     var nightmare = Nightmare({ show: false })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('.date-picker')
+        //         .evaluate(function () {
+        //             var elements = document.querySelectorAll('.date-picker');
+        //             elements[0].value = ""; // clear description
+        //         })
+        //         .type('.date-picker', '01/01/2001')
+        //         .type('body', '\u000d') // enter key
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var elements = document.querySelectorAll('.card-edit-btn');
+        //                     elements[0].click();
+        //                 })
+        //                 .wait('.date-picker')
+        //                 .evaluate(function () {
+        //                     var elements = document.querySelectorAll('.date-picker');
+        //                     return elements[0].value;
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("2001-01-01");
+        //                     done();
+        //                 })
+        //         })
+        // });
+
+
+        // it('should mark card as done', function (done) {
+        //     var nightmare = Nightmare({ show: false })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('.card-done')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-done');
+        //             elements[0].click();
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var elements = document.querySelectorAll('.card-edit-btn');
+        //                     elements[0].click();
+        //                 })
+        //                 .wait('.card-done')
+        //                 .evaluate(function () {
+        //                     var elements = document.querySelectorAll('.card-done');
+        //                     return elements[0].textContent.trim() || elements[0].innerText.trim();
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("Mark as Done");
+        //                     done();
+        //                 })
+        //         })
+        // });
+
+
+
+        it('should add effort', function (done) {
             var nightmare = Nightmare({ show: false })
 
             nightmare
@@ -126,105 +240,17 @@ describe('Nightmare demo', function () {
                     var elements = document.querySelectorAll('.card-edit-btn');
                     elements[0].click();
                 })
-                .wait('textarea.description')
-                .evaluate(function () {
-                    var elements = document.querySelectorAll('textarea.description');
-                    elements[0].value = ""; // clear description
-                })
-                .type('textarea.description', 'test')
-                .type('body', '\u000d') // enter key
-                .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-edit-btn');
-                    elements[0].click();
-                })
+                .wait('.card-effort')
+                .select('.card-effort', '3')
                 .then(function () {
                     nightmare
-                        .evaluate(()=>{
-                            var elements = document.querySelectorAll('.card-edit-btn');
-                            elements[0].click();
-                        })
-                        .wait('textarea.description')
                         .evaluate(function () {
-                            var elements = document.querySelectorAll('textarea.description');
-                            return elements[0].value;
-                        })
+                            return document.querySelector('.card-effort').value;
+                          })
                         .then(function (value) {
-                            expect(value).to.equal("test");
+                            expect(value).to.equal("3");
                             done();
-                        })
-                })
-        });
-
-        it('should add start date to card', function (done) {
-            var nightmare = Nightmare({ show: false })
-
-            nightmare
-                .goto(url)
-                .wait('.card-edit-btn')
-                .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-edit-btn');
-                    elements[0].click();
-                })
-                .wait('.date-picker')
-                .evaluate(function () {
-                    var elements = document.querySelectorAll('.date-picker');
-                    elements[0].value = ""; // clear description
-                })
-                .type('.date-picker', '01/01/2001')
-                .type('body', '\u000d') // enter key
-                .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-edit-btn');
-                    elements[0].click();
-                })
-                .then(function () {
-                    nightmare
-                        .evaluate(()=>{
-                            var elements = document.querySelectorAll('.card-edit-btn');
-                            elements[0].click();
-                        })
-                        .wait('.date-picker')
-                        .evaluate(function () {
-                            var elements = document.querySelectorAll('.date-picker');
-                            return elements[0].value;
-                        })
-                        .then(function (value) {
-                            expect(value).to.equal("2001-01-01");
-                            done();
-                        })
-                })
-        });
-
-
-        it('should mark card as done', function (done) {
-            var nightmare = Nightmare({ show: false })
-
-            nightmare
-                .goto(url)
-                .wait('.card-edit-btn')
-                .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-edit-btn');
-                    elements[0].click();
-                })
-                .wait('.card-done')
-                .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-done');
-                    elements[0].click();
-                })
-                .then(function () {
-                    nightmare
-                        .evaluate(()=>{
-                            var elements = document.querySelectorAll('.card-edit-btn');
-                            elements[0].click();
-                        })
-                        .wait('.card-done')
-                        .evaluate(function () {
-                            var elements = document.querySelectorAll('.card-done');
-                            return elements[0].textContent.trim() || elements[0].innerText.trim();
-                        })
-                        .then(function (value) {
-                            expect(value).to.equal("Mark as Done");
-                            done();
-                        })
+                        });
                 })
         });
 
