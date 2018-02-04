@@ -230,25 +230,61 @@ describe('Nightmare demo', function () {
 
 
 
-        it('should add effort', function (done) {
-            var nightmare = Nightmare({ show: false })
+        // it('should add effort', function (done) {
+        //     var nightmare = Nightmare({ show: false })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('.card-effort')
+        //         .select('.card-effort', '3')
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(function () {
+        //                     return document.querySelector('.card-effort').value;
+        //                   })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("3");
+        //                     done();
+        //                 });
+        //         })
+        // });
+
+        it('should copy card', function (done) {
+            var nightmare = Nightmare({ show: true });
+            var originalCardTitle = "";
 
             nightmare
                 .goto(url)
-                .wait('.card-edit-btn')
+                .wait('.card-copy-btn')
                 .evaluate(()=>{
-                    var elements = document.querySelectorAll('.card-edit-btn');
+                    var allCards = document.querySelectorAll('.card-list li.card');
+                    var firstCard = allCards[0];
+                    originalCardTitle = firstCard.querySelector('.card-name span').innerHTML;
+
+                    var elements = document.querySelectorAll('.card-copy-btn');
                     elements[0].click();
+
+                    return originalCardTitle;
                 })
-                .wait('.card-effort')
-                .select('.card-effort', '3')
+                .then(function (value) {
+                    originalCardTitle = value;
+                })
                 .then(function () {
                     nightmare
-                        .evaluate(function () {
-                            return document.querySelector('.card-effort').value;
-                          })
+                        .evaluate(()=>{
+                            var allCards = document.querySelectorAll('.card-list li.card');
+                            var lastCard = allCards[allCards.length - 1];
+                            var cardTitle = lastCard.querySelector('.card-name span').innerHTML;
+
+                            return cardTitle;
+                        })
                         .then(function (value) {
-                            expect(value).to.equal("3");
+                            expect(value).to.equal(originalCardTitle);
                             done();
                         });
                 })
