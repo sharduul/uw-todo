@@ -254,39 +254,85 @@ describe('Nightmare demo', function () {
         //         })
         // });
 
-        it('should copy card', function (done) {
-            var nightmare = Nightmare({ show: true });
-            var originalCardTitle = "";
+        // it('should copy card', function (done) {
+        //     var nightmare = Nightmare({ show: false });
+        //     var originalCardTitle = "";
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-copy-btn')
+        //         .evaluate(()=>{
+        //             var allCards = document.querySelectorAll('.card-list li.card');
+        //             var firstCard = allCards[0];
+        //             originalCardTitle = firstCard.querySelector('.card-name span').innerHTML;
+
+        //             var elements = document.querySelectorAll('.card-copy-btn');
+        //             elements[0].click();
+
+        //             return originalCardTitle;
+        //         })
+        //         .then(function (value) {
+        //             originalCardTitle = value;
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var allCards = document.querySelectorAll('.card-list li.card');
+        //                     var lastCard = allCards[allCards.length - 1];
+        //                     var cardTitle = lastCard.querySelector('.card-name span').innerHTML;
+
+        //                     return cardTitle;
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal(originalCardTitle);
+        //                     done();
+        //                 });
+        //         })
+        // });
+
+
+        it('should delete column from the board', function (done) {
+            var originalCount = 0;
+            var newCount = 0;
+            var nightmare = Nightmare({ show: false })
 
             nightmare
                 .goto(url)
-                .wait('.card-copy-btn')
-                .evaluate(()=>{
-                    var allCards = document.querySelectorAll('.card-list li.card');
-                    var firstCard = allCards[0];
-                    originalCardTitle = firstCard.querySelector('.card-name span').innerHTML;
-
-                    var elements = document.querySelectorAll('.card-copy-btn');
-                    elements[0].click();
-
-                    return originalCardTitle;
+                .wait('.ui-sortable')
+                .evaluate(function () {
+                    originalCount = document.querySelectorAll('.sortable-column').length;
+                    return originalCount;
                 })
                 .then(function (value) {
-                    originalCardTitle = value;
+                    originalCount = value;
                 })
                 .then(function () {
                     nightmare
-                        .evaluate(()=>{
-                            var allCards = document.querySelectorAll('.card-list li.card');
-                            var lastCard = allCards[allCards.length - 1];
-                            var cardTitle = lastCard.querySelector('.card-name span').innerHTML;
+                        .wait('div.column-header .column-actions i')
+                        .click('div.column-header .column-actions i')
+                        .wait('div.column-header .column-actions ._actions-dropdown')
+                        .evaluate(function () {
+                            elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
 
-                            return cardTitle;
+
+                            console.log(elements.length);
+
+                            for (var i = 0; i < elements.length; i++) { 
+                                if (elements[i].innerHTML.startsWith('Delete')) {
+                                    elements[i].click();
+                                    break;
+                                }
+                            }
                         })
-                        .then(function (value) {
-                            expect(value).to.equal(originalCardTitle);
+                        //.click('div.column-header .column-actions ._actions-dropdown:contains("Delete")')
+                        .evaluate(function () {
+                            newCount = document.querySelectorAll('.sortable-column').length;
+                            return newCount;
+                        })
+                        .then(function () {
+                            expect(newCount).to.equal(originalCount - 1);
                             done();
-                        });
+                        })
                 })
         });
 
