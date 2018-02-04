@@ -313,10 +313,6 @@ describe('Nightmare demo', function () {
                         .wait('div.column-header .column-actions ._actions-dropdown')
                         .evaluate(function () {
                             elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
-
-
-                            console.log(elements.length);
-
                             for (var i = 0; i < elements.length; i++) { 
                                 if (elements[i].innerHTML.startsWith('Delete')) {
                                     elements[i].click();
@@ -324,7 +320,6 @@ describe('Nightmare demo', function () {
                                 }
                             }
                         })
-                        //.click('div.column-header .column-actions ._actions-dropdown:contains("Delete")')
                         .evaluate(function () {
                             newCount = document.querySelectorAll('.sortable-column').length;
                             return newCount;
