@@ -24,7 +24,7 @@ describe('Nightmare demo', function () {
     });
 
     describe('Board page', function () {
-        url = 'http://localhost:4200/b/5a77c70370550924643f9a07';
+        url = 'http://localhost:4200/b/5a77cdd40effc733902fc5c8';
         //url = 'http://localhost:4200/';
 
         // before(function (done) {
@@ -332,12 +332,73 @@ describe('Nightmare demo', function () {
         // });
 
 
-        it('should copy column', function (done) {
+        // it('should copy column', function (done) {
+        //     var nightmare = Nightmare({ show: true });
+        //     var originalColumnTitle = "";
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.ui-sortable')
+        //         .wait('div.column-header .column-actions i')
+        //         .click('div.column-header .column-actions i')
+        //         .wait('div.column-header .column-actions ._actions-dropdown')
+        //         .evaluate(function () {
+        //             var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+        //             for (var i = 0; i < elements.length; i++) { 
+        //                 if (elements[i].innerHTML.startsWith('Copy')) {
+        //                     elements[i].click();
+        //                     break;
+        //                 }
+        //             }
+        //         })
+        //         .evaluate(()=>{
+        //             var allColumns = document.querySelectorAll('.sortable-column');
+        //             var firstColumn = allColumns[0];
+        //             originalColumnTitle = firstColumn.querySelector('.column .column-header h4').innerHTML;
+
+        //             return originalColumnTitle;
+        //         })
+        //         .then(function (value) {
+        //             originalColumnTitle = value;
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(()=>{
+        //                     var allColumns = document.querySelectorAll('.sortable-column');
+        //                     var lastColumn = allColumns[allColumns.length - 1];
+        //                     var columnTitle = lastColumn.querySelector('.column .column-header h4').innerHTML;
+
+        //                     return columnTitle;
+        //                 })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal(originalColumnTitle);
+        //                     done();
+        //                 });
+        //         })
+        // });
+
+
+
+        it('should sort column by title', function (done) {
             var nightmare = Nightmare({ show: true });
-            var originalColumnTitle = "";
+            var indexCard1 = -1;
+            var indexCard2 = -1;
 
             nightmare
                 .goto(url)
+                .wait('.card-list')
+                .wait('div.add-card')
+                .click('div.add-card')
+                .wait('div.add-card .add-card-input')
+                .type('div.add-card .add-card-input', 'card 1')
+                .type('body', '\u000d') // enter key
+                .wait('div.add-card')
+                .click('div.add-card')
+                .wait('div.add-card .add-card-input')
+                .type('div.add-card .add-card-input', 'card 2')
+                .type('body', '\u000d') // enter key
+
+                // Sort by title
                 .wait('.ui-sortable')
                 .wait('div.column-header .column-actions i')
                 .click('div.column-header .column-actions i')
@@ -345,40 +406,57 @@ describe('Nightmare demo', function () {
                 .evaluate(function () {
                     var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
                     for (var i = 0; i < elements.length; i++) { 
-                        if (elements[i].innerHTML.startsWith('Copy')) {
+                        if (elements[i].innerHTML.startsWith('Sort By Title')) {
                             elements[i].click();
                             break;
                         }
                     }
                 })
-                .evaluate(()=>{
-                    var allColumns = document.querySelectorAll('.sortable-column');
-                    var firstColumn = allColumns[0];
-                    originalColumnTitle = firstColumn.querySelector('.column .column-header h4').innerHTML;
+                .evaluate(function () {
+                    var allCards = document.querySelectorAll('.card-list li.card');
 
-                    return originalColumnTitle;
+                    for (var i = 0; i < allCards.length; i++) { 
+                        var cardName = allCards[i].querySelector('.card-name span').innerHTML;
+                        if (cardName.startsWith('card 1')) {
+                            indexCard1 = i;
+                        }
+
+                        if (cardName.startsWith('card 2')) {
+                            indexCard2 = i;
+                        }
+                    }
+
+                    return [indexCard1, indexCard2];
+
                 })
                 .then(function (value) {
-                    originalColumnTitle = value;
-                })
-                .then(function () {
-                    nightmare
-                        .evaluate(()=>{
-                            var allColumns = document.querySelectorAll('.sortable-column');
-                            var lastColumn = allColumns[allColumns.length - 1];
-                            var columnTitle = lastColumn.querySelector('.column .column-header h4').innerHTML;
+                    indexCard1 = value[0];
+                    indexCard2 = value[1];
 
-                            return columnTitle;
-                        })
-                        .then(function (value) {
-                            expect(value).to.equal(originalColumnTitle);
-                            done();
-                        });
-                })
+                    expect(indexCard2).to.be.above(indexCard1);
+                    done();
+                });
+              
         });
+
+        // function addCard(nightmareInstance, title){
+
+        //     return nightmareInstance
+        //         .goto(url)
+        //         .wait('div.add-card')
+        //         .click('div.add-card')
+        //         .wait('div.add-card .add-card-input')
+        //         .type('div.add-card .add-card-input', 'card 1')
+        //         .type('body', '\u000d') // enter key
+    
+        // }
 
 
 
     });
+
+        
+    
    
 });
+
