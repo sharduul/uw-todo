@@ -24,7 +24,7 @@ describe('Nightmare demo', function () {
     });
 
     describe('Board page', function () {
-        url = 'http://localhost:4200/b/5a0c571d6b5b743454fac770';
+        url = 'http://localhost:4200/b/5a77c70370550924643f9a07';
         //url = 'http://localhost:4200/';
 
         // before(function (done) {
@@ -291,45 +291,92 @@ describe('Nightmare demo', function () {
         // });
 
 
-        it('should delete column from the board', function (done) {
-            var originalCount = 0;
-            var newCount = 0;
-            var nightmare = Nightmare({ show: false })
+        // it('should delete column from the board', function (done) {
+        //     var originalCount = 0;
+        //     var newCount = 0;
+        //     var nightmare = Nightmare({ show: false })
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.ui-sortable')
+        //         .evaluate(function () {
+        //             originalCount = document.querySelectorAll('.sortable-column').length;
+        //             return originalCount;
+        //         })
+        //         .then(function (value) {
+        //             originalCount = value;
+        //         })
+        //         .then(function () {
+        //             nightmare
+        //                 .wait('div.column-header .column-actions i')
+        //                 .click('div.column-header .column-actions i')
+        //                 .wait('div.column-header .column-actions ._actions-dropdown')
+        //                 .evaluate(function () {
+        //                     elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+        //                     for (var i = 0; i < elements.length; i++) { 
+        //                         if (elements[i].innerHTML.startsWith('Delete')) {
+        //                             elements[i].click();
+        //                             break;
+        //                         }
+        //                     }
+        //                 })
+        //                 .evaluate(function () {
+        //                     newCount = document.querySelectorAll('.sortable-column').length;
+        //                     return newCount;
+        //                 })
+        //                 .then(function () {
+        //                     expect(newCount).to.equal(originalCount - 1);
+        //                     done();
+        //                 })
+        //         })
+        // });
+
+
+        it('should copy column', function (done) {
+            var nightmare = Nightmare({ show: true });
+            var originalColumnTitle = "";
 
             nightmare
                 .goto(url)
                 .wait('.ui-sortable')
+                .wait('div.column-header .column-actions i')
+                .click('div.column-header .column-actions i')
+                .wait('div.column-header .column-actions ._actions-dropdown')
                 .evaluate(function () {
-                    originalCount = document.querySelectorAll('.sortable-column').length;
-                    return originalCount;
+                    var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+                    for (var i = 0; i < elements.length; i++) { 
+                        if (elements[i].innerHTML.startsWith('Copy')) {
+                            elements[i].click();
+                            break;
+                        }
+                    }
+                })
+                .evaluate(()=>{
+                    var allColumns = document.querySelectorAll('.sortable-column');
+                    var firstColumn = allColumns[0];
+                    originalColumnTitle = firstColumn.querySelector('.column .column-header h4').innerHTML;
+
+                    return originalColumnTitle;
                 })
                 .then(function (value) {
-                    originalCount = value;
+                    originalColumnTitle = value;
                 })
                 .then(function () {
                     nightmare
-                        .wait('div.column-header .column-actions i')
-                        .click('div.column-header .column-actions i')
-                        .wait('div.column-header .column-actions ._actions-dropdown')
-                        .evaluate(function () {
-                            elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
-                            for (var i = 0; i < elements.length; i++) { 
-                                if (elements[i].innerHTML.startsWith('Delete')) {
-                                    elements[i].click();
-                                    break;
-                                }
-                            }
+                        .evaluate(()=>{
+                            var allColumns = document.querySelectorAll('.sortable-column');
+                            var lastColumn = allColumns[allColumns.length - 1];
+                            var columnTitle = lastColumn.querySelector('.column .column-header h4').innerHTML;
+
+                            return columnTitle;
                         })
-                        .evaluate(function () {
-                            newCount = document.querySelectorAll('.sortable-column').length;
-                            return newCount;
-                        })
-                        .then(function () {
-                            expect(newCount).to.equal(originalCount - 1);
+                        .then(function (value) {
+                            expect(value).to.equal(originalColumnTitle);
                             done();
-                        })
+                        });
                 })
         });
+
 
 
     });
