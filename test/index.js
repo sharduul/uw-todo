@@ -378,7 +378,6 @@ describe('Nightmare demo', function () {
         // });
 
 
-
         it('should sort column by title', function (done) {
             var nightmare = Nightmare({ show: true });
             var indexCard1 = -1;
@@ -439,24 +438,7 @@ describe('Nightmare demo', function () {
               
         });
 
-        // function addCard(nightmareInstance, title){
-
-        //     return nightmareInstance
-        //         .goto(url)
-        //         .wait('div.add-card')
-        //         .click('div.add-card')
-        //         .wait('div.add-card .add-card-input')
-        //         .type('div.add-card .add-card-input', 'card 1')
-        //         .type('body', '\u000d') // enter key
-    
-        // }
-
-
-
     });
-
-        
-    
    
 });
 
