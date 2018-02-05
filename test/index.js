@@ -389,12 +389,12 @@ describe('Nightmare demo', function () {
                 .wait('div.add-card')
                 .click('div.add-card')
                 .wait('div.add-card .add-card-input')
-                .type('div.add-card .add-card-input', 'card 1')
+                .type('div.add-card .add-card-input', 'card 2')
                 .type('body', '\u000d') // enter key
                 .wait('div.add-card')
                 .click('div.add-card')
                 .wait('div.add-card .add-card-input')
-                .type('div.add-card .add-card-input', 'card 2')
+                .type('div.add-card .add-card-input', 'card 1')
                 .type('body', '\u000d') // enter key
 
                 // Sort by title
