@@ -7,7 +7,7 @@ describe('Nightmare demo', function () {
     this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
 
     //var url = 'http://localhost:3000';
-    var url = 'http://localhost:4200/';
+    var url = 'http://localhost:4444/';
 
     describe('Start page', function () {
         it('should show headline when loaded', function (done) {
@@ -24,7 +24,7 @@ describe('Nightmare demo', function () {
     });
 
     describe('Board page', function () {
-        url = 'http://localhost:4200/b/5a77cdd40effc733902fc5c8';
+        url = 'http://localhost:4444/b/5a77cdd40effc733902fc5c8';
         //url = 'http://localhost:4200/';
 
         // before(function (done) {
@@ -168,7 +168,7 @@ describe('Nightmare demo', function () {
         //         .wait('.date-picker')
         //         .evaluate(function () {
         //             var elements = document.querySelectorAll('.date-picker');
-        //             elements[0].value = ""; // clear description
+        //             elements[0].value = ""; // clear date
         //         })
         //         .type('.date-picker', '01/01/2001')
         //         .type('body', '\u000d') // enter key
@@ -378,26 +378,149 @@ describe('Nightmare demo', function () {
         // });
 
 
-        it('should sort column by title', function (done) {
+        // it('should sort column by title', function (done) {
+        //     var nightmare = Nightmare({ show: true });
+        //     var indexCard1 = -1;
+        //     var indexCard2 = -1;
+
+        //     nightmare
+        //         .goto(url)
+        //         .wait('.card-list')
+        //         .wait('div.add-card')
+        //         .click('div.add-card')
+        //         .wait('div.add-card .add-card-input')
+        //         .type('div.add-card .add-card-input', 'card 2')
+        //         .type('body', '\u000d') // enter key
+        //         .wait('div.add-card')
+        //         .click('div.add-card')
+        //         .wait('div.add-card .add-card-input')
+        //         .type('div.add-card .add-card-input', 'card 1')
+        //         .type('body', '\u000d') // enter key
+
+        //         // Sort by title
+        //         .wait('.ui-sortable')
+        //         .wait('div.column-header .column-actions i')
+        //         .click('div.column-header .column-actions i')
+        //         .wait('div.column-header .column-actions ._actions-dropdown')
+        //         .evaluate(function () {
+        //             var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+        //             for (var i = 0; i < elements.length; i++) { 
+        //                 if (elements[i].innerHTML.startsWith('Sort By Title')) {
+        //                     elements[i].click();
+        //                     break;
+        //                 }
+        //             }
+        //         })
+        //         .evaluate(function () {
+        //             var allCards = document.querySelectorAll('.card-list li.card');
+
+        //             for (var i = 0; i < allCards.length; i++) { 
+        //                 var cardName = allCards[i].querySelector('.card-name span').innerHTML;
+        //                 if (cardName.startsWith('card 1')) {
+        //                     indexCard1 = i;
+        //                 }
+
+        //                 if (cardName.startsWith('card 2')) {
+        //                     indexCard2 = i;
+        //                 }
+        //             }
+
+        //             return [indexCard1, indexCard2];
+
+        //         })
+        //         .then(function (value) {
+        //             indexCard1 = value[0];
+        //             indexCard2 = value[1];
+
+        //             expect(indexCard2).to.be.above(indexCard1);
+        //             done();
+        //         });
+              
+        // });
+
+
+
+        it('should sort column by start date', function (done) {
             var nightmare = Nightmare({ show: true });
             var indexCard1 = -1;
             var indexCard2 = -1;
+            var currentCard = null;
+            var editBtn = null;
 
             nightmare
                 .goto(url)
                 .wait('.card-list')
+
+                // Add first card
+                // .wait('div.add-card')
+                // .click('div.add-card')
+                // .wait('div.add-card .add-card-input')
+                // .type('div.add-card .add-card-input', 'card 1')
+                // .type('body', '\u000d') // enter key
+                // .wait(1000)
+
+                // Change date of first card
+                .evaluate(()=>{
+                    var allCards = document.querySelectorAll('.card-list>li');
+
+                    for (var i = 0; i < allCards.length; i++) { 
+                        currentCard = allCards[i];
+                        if (currentCard.querySelector('.card-name span').innerHTML.startsWith('card 1')) {
+                            break;
+                        }
+                    }
+
+                    editBtn = currentCard.querySelector('.card-actions .card-edit-btn');
+                    editBtn.click();
+                })
+                .wait('.date-picker')
+                .evaluate(function () {
+                    var datePicker = currentCard.querySelector('.date-picker');
+                    // datePicker.value = "2018-01-03"; // set date
+                    datePicker.value = ""; // set date
+                })
+                .type('.date-picker', '01/01/2001')
+                .type('body', '\u000d') // enter key
+                .evaluate(()=>{
+                    editBtn.click();
+                })
+
+
+                // Add second card
                 .wait('div.add-card')
                 .click('div.add-card')
                 .wait('div.add-card .add-card-input')
                 .type('div.add-card .add-card-input', 'card 2')
-                .type('body', '\u000d') // enter key
-                .wait('div.add-card')
-                .click('div.add-card')
-                .wait('div.add-card .add-card-input')
-                .type('div.add-card .add-card-input', 'card 1')
-                .type('body', '\u000d') // enter key
+                .type('.date-picker', '\u000d') // enter key
 
-                // Sort by title
+                // Change date of second card
+                .evaluate(()=>{
+                    var allCards = document.querySelectorAll('.card-list>li');
+
+                    for (var i = 0; i < allCards.length; i++) { 
+                        currentCard = allCards[i];
+                        if (currentCard.querySelector('.card-name span').innerHTML.startsWith('card 2')) {
+                            break;
+                        }
+                    }
+
+                    editBtn = currentCard.querySelector('.card-actions .card-edit-btn');
+                    editBtn.click();
+                })
+                .wait('.date-picker')
+                .evaluate(function () {
+                    var datePicker = currentCard.querySelector('.date-picker');
+                    datePicker.value = "2018-01-02"; // set date
+
+                    var keyEvent = new KeyboardEvent("keydown", {key : "Enter", char : "", shiftKey: false});
+                    datePicker.dispatchEvent(keyEvent)
+                })
+                //.type('input.date-picker', '\u000d') // enter key
+                .evaluate(()=>{
+                    editBtn.click();
+                })
+
+                // Sort by start date
                 .wait('.ui-sortable')
                 .wait('div.column-header .column-actions i')
                 .click('div.column-header .column-actions i')
@@ -405,7 +528,7 @@ describe('Nightmare demo', function () {
                 .evaluate(function () {
                     var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
                     for (var i = 0; i < elements.length; i++) { 
-                        if (elements[i].innerHTML.startsWith('Sort By Title')) {
+                        if (elements[i].innerHTML.startsWith('Sort By Start Date')) {
                             elements[i].click();
                             break;
                         }
