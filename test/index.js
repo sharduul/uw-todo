@@ -231,7 +231,7 @@ describe('Nightmare demo', function () {
 
 
         // it('should add effort', function (done) {
-        //     var nightmare = Nightmare({ show: false })
+        //     var nightmare = Nightmare({ show: true })
 
         //     nightmare
         //         .goto(url)
@@ -440,6 +440,30 @@ describe('Nightmare demo', function () {
 
 
 
+
+         //     nightmare
+        //         .goto(url)
+        //         .wait('.card-edit-btn')
+        //         .evaluate(()=>{
+        //             var elements = document.querySelectorAll('.card-edit-btn');
+        //             elements[0].click();
+        //         })
+        //         .wait('.card-effort')
+        //         .select('.card-effort', '3')
+        //         .then(function () {
+        //             nightmare
+        //                 .evaluate(function () {
+        //                     return document.querySelector('.card-effort').value;
+        //                   })
+        //                 .then(function (value) {
+        //                     expect(value).to.equal("3");
+        //                     done();
+        //                 });
+        //         })
+
+
+
+
         it('should sort column by start date', function (done) {
             var nightmare = Nightmare({ show: true });
             var indexCard1 = -1;
@@ -448,117 +472,114 @@ describe('Nightmare demo', function () {
             var editBtn = null;
 
             nightmare
-                .goto(url)
-                .wait('.card-list')
+			.goto(url)
+			.wait('.card-list')
 
-                // Add first card
-                // .wait('div.add-card')
-                // .click('div.add-card')
-                // .wait('div.add-card .add-card-input')
-                // .type('div.add-card .add-card-input', 'card 1')
-                // .type('body', '\u000d') // enter key
-                // .wait(1000)
+			// // Add first card
+			// .wait('div.add-card')
+			// .click('div.add-card')
+			// .wait('div.add-card .add-card-input')
+			// .type('div.add-card .add-card-input', 'card 1')
+			// .type('body', '\u000d') // enter key
+			
+			// // Add second card
+			// .wait('div.add-card')
+			// .click('div.add-card')
+			// .wait('div.add-card .add-card-input')
+			// .type('div.add-card .add-card-input', 'card 2')
+			// .type('.date-picker', '\u000d') // enter key
+			// // .wait(2000)
 
-                // Change date of first card
-                .evaluate(()=>{
-                    var allCards = document.querySelectorAll('.card-list>li');
+			// Change date of first card
+			.evaluate(()=>{
+				var allCards = document.querySelectorAll('.card-list>li');
 
-                    for (var i = 0; i < allCards.length; i++) { 
-                        currentCard = allCards[i];
-                        if (currentCard.querySelector('.card-name span').innerHTML.startsWith('card 1')) {
-                            break;
-                        }
-                    }
+				for (var i = 0; i < allCards.length; i++) { 
+					currentCard = allCards[i];
+					if (currentCard.querySelector('.card-name span').innerHTML.startsWith('card 1')) {
+						break;
+					}
+				}
 
-                    editBtn = currentCard.querySelector('.card-actions .card-edit-btn');
-                    editBtn.click();
-                })
-                .wait('.date-picker')
-                .evaluate(function () {
-                    var datePicker = currentCard.querySelector('.date-picker');
-                    // datePicker.value = "2018-01-03"; // set date
-                    datePicker.value = ""; // set date
-                })
-                .type('.date-picker', '01/01/2001')
-                .type('body', '\u000d') // enter key
-                .evaluate(()=>{
-                    editBtn.click();
-                })
+				editBtn = currentCard.querySelector('.card-actions .card-edit-btn');
+				editBtn.click();
+			})
+			.wait('.card-effort')
+			.evaluate(()=>{
+				var select = currentCard.querySelector('.card-effort select');
+				select.value = '3';
+				editBtn.click();
+			})
+			.type('body', '\u000d')
+			.then(function () {
+				nightmare
+				.wait('.card-list')
+				.evaluate(()=>{
+					var allCards = document.querySelectorAll('.card-list>li');
 
+					for (var i = 0; i < allCards.length; i++) { 
+						currentCard = allCards[i];
+						if (currentCard.querySelector('.card-name span').innerHTML.startsWith('card 2')) {
+							break;
+						}
+					}
 
-                // Add second card
-                .wait('div.add-card')
-                .click('div.add-card')
-                .wait('div.add-card .add-card-input')
-                .type('div.add-card .add-card-input', 'card 2')
-                .type('.date-picker', '\u000d') // enter key
+					editBtn = currentCard.querySelector('.card-actions .card-edit-btn');
+					editBtn.click();
+				})
+				.wait('.card-effort')
+				.evaluate(()=>{
+					var select = currentCard.querySelector('.card-effort select');
+					select.value = '2';
+					editBtn.click();
+				})
+				.type('body', '\u000d')
+				.then(function (value) {
 
-                // Change date of second card
-                .evaluate(()=>{
-                    var allCards = document.querySelectorAll('.card-list>li');
+					nightmare
+					// Sort By Effort
+					.wait('.ui-sortable')
+					.wait('div.column-header .column-actions i')
+					.click('div.column-header .column-actions i')
+					.wait('div.column-header .column-actions ._actions-dropdown')
+					.evaluate(function () {
+						var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+						for (var i = 0; i < elements.length; i++) { 
+							if (elements[i].innerHTML.startsWith('Sort By Effort')) {
+								elements[i].click();
+								break;
+							}
+						}
+					})
 
-                    for (var i = 0; i < allCards.length; i++) { 
-                        currentCard = allCards[i];
-                        if (currentCard.querySelector('.card-name span').innerHTML.startsWith('card 2')) {
-                            break;
-                        }
-                    }
+					.evaluate(function () {
+						var allCards = document.querySelectorAll('.card-list li.card');
 
-                    editBtn = currentCard.querySelector('.card-actions .card-edit-btn');
-                    editBtn.click();
-                })
-                .wait('.date-picker')
-                .evaluate(function () {
-                    var datePicker = currentCard.querySelector('.date-picker');
-                    datePicker.value = "2018-01-02"; // set date
+						for (var i = 0; i < allCards.length; i++) { 
+							var cardName = allCards[i].querySelector('.card-name span').innerHTML;
+							if (cardName.startsWith('card 1')) {
+								indexCard1 = i;
+							}
 
-                    var keyEvent = new KeyboardEvent("keydown", {key : "Enter", char : "", shiftKey: false});
-                    datePicker.dispatchEvent(keyEvent)
-                })
-                //.type('input.date-picker', '\u000d') // enter key
-                .evaluate(()=>{
-                    editBtn.click();
-                })
+							if (cardName.startsWith('card 2')) {
+								indexCard2 = i;
+							}
+						}
 
-                // Sort by start date
-                .wait('.ui-sortable')
-                .wait('div.column-header .column-actions i')
-                .click('div.column-header .column-actions i')
-                .wait('div.column-header .column-actions ._actions-dropdown')
-                .evaluate(function () {
-                    var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
-                    for (var i = 0; i < elements.length; i++) { 
-                        if (elements[i].innerHTML.startsWith('Sort By Start Date')) {
-                            elements[i].click();
-                            break;
-                        }
-                    }
-                })
-                .evaluate(function () {
-                    var allCards = document.querySelectorAll('.card-list li.card');
+						return [indexCard1, indexCard2];
 
-                    for (var i = 0; i < allCards.length; i++) { 
-                        var cardName = allCards[i].querySelector('.card-name span').innerHTML;
-                        if (cardName.startsWith('card 1')) {
-                            indexCard1 = i;
-                        }
+					})
+					.then(function (value) {
+						indexCard1 = value[0];
+						indexCard2 = value[1];
 
-                        if (cardName.startsWith('card 2')) {
-                            indexCard2 = i;
-                        }
-                    }
+						expect(indexCard1).to.be.above(indexCard2);
+						done();
+					});
+				});
 
-                    return [indexCard1, indexCard2];
-
-                })
-                .then(function (value) {
-                    indexCard1 = value[0];
-                    indexCard2 = value[1];
-
-                    expect(indexCard2).to.be.above(indexCard1);
-                    done();
-                });
-              
+			})
+			
         });
 
     });

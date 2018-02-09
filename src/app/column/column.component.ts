@@ -120,6 +120,10 @@ export class ColumnComponent implements OnInit {
         prop = "startDate";
         this.cards.sort(sortFn); 
         break;
+      case "effort": 
+        prop = "effort";
+        this.cards.sort(sortFn); 
+        break;
       case "title": 
         prop = "title";
         this.cards = this.cards.sort(sortFn); 
