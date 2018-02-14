@@ -1,0 +1,19 @@
+You have been given a Task Management app (a "todo" list app). 
+The following use cases are supported in this application - 
+
+1. View the task board
+2. View lists of tasks
+3. Add new list
+4. Add task to a list 
+5. Sort the list by the list card title
+
+The application has been build with Angular 4.0 and Express.js Javascript frameworks. 
+A local Mongo database is used as the application database. 
+The complete project environment is available in a Linux emulator (on the right) where you can work on your code, execute it and interact with the app as well.
+
+The application is partially implemented and a "Sort" API has been provided for your use.
+
+Your task is to implement the use case #5 using the above API:
+- Clicking the vertical menu on list should open a menu
+- And clicking on "Sort By Title" should should sort all the cards on that list by their title
+

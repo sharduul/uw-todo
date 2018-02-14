@@ -230,242 +230,218 @@ describe('Nightmare demo', function () {
 
 
 
-        // it('should add effort', function (done) {
-        //     var nightmare = Nightmare({ show: true })
+        it('should add effort', function (done) {
+            var nightmare = Nightmare({ show: false })
 
-        //     nightmare
-        //         .goto(url)
-        //         .wait('.card-edit-btn')
-        //         .evaluate(()=>{
-        //             var elements = document.querySelectorAll('.card-edit-btn');
-        //             elements[0].click();
-        //         })
-        //         .wait('.card-effort')
-        //         .select('.card-effort', '3')
-        //         .then(function () {
-        //             nightmare
-        //                 .evaluate(function () {
-        //                     return document.querySelector('.card-effort').value;
-        //                   })
-        //                 .then(function (value) {
-        //                     expect(value).to.equal("3");
-        //                     done();
-        //                 });
-        //         })
-        // });
+            nightmare
+                .goto(url)
+                .wait('.card-edit-btn')
+                .evaluate(()=>{
+                    var elements = document.querySelectorAll('.card-edit-btn');
+                    elements[0].click();
+                })
+                .wait('.card-effort')
+                .select('.card-effort', '3')
+                .then(function () {
+                    nightmare
+                        .evaluate(function () {
+                            return document.querySelector('.card-effort').value;
+                          })
+                        .then(function (value) {
+                            expect(value).to.equal("3");
+                            done();
+                        });
+                })
+        });
 
-        // it('should copy card', function (done) {
-        //     var nightmare = Nightmare({ show: false });
-        //     var originalCardTitle = "";
+        it('should copy card', function (done) {
+            var nightmare = Nightmare({ show: false });
+            var originalCardTitle = "";
 
-        //     nightmare
-        //         .goto(url)
-        //         .wait('.card-copy-btn')
-        //         .evaluate(()=>{
-        //             var allCards = document.querySelectorAll('.card-list li.card');
-        //             var firstCard = allCards[0];
-        //             originalCardTitle = firstCard.querySelector('.card-name span').innerHTML;
+            nightmare
+                .goto(url)
+                .wait('.card-copy-btn')
+                .evaluate(()=>{
+                    var allCards = document.querySelectorAll('.card-list li.card');
+                    var firstCard = allCards[0];
+                    originalCardTitle = firstCard.querySelector('.card-name span').innerHTML;
 
-        //             var elements = document.querySelectorAll('.card-copy-btn');
-        //             elements[0].click();
+                    var elements = document.querySelectorAll('.card-copy-btn');
+                    elements[0].click();
 
-        //             return originalCardTitle;
-        //         })
-        //         .then(function (value) {
-        //             originalCardTitle = value;
-        //         })
-        //         .then(function () {
-        //             nightmare
-        //                 .evaluate(()=>{
-        //                     var allCards = document.querySelectorAll('.card-list li.card');
-        //                     var lastCard = allCards[allCards.length - 1];
-        //                     var cardTitle = lastCard.querySelector('.card-name span').innerHTML;
+                    return originalCardTitle;
+                })
+                .then(function (value) {
+                    originalCardTitle = value;
+                })
+                .then(function () {
+                    nightmare
+                        .evaluate(()=>{
+                            var allCards = document.querySelectorAll('.card-list li.card');
+                            var lastCard = allCards[allCards.length - 1];
+                            var cardTitle = lastCard.querySelector('.card-name span').innerHTML;
 
-        //                     return cardTitle;
-        //                 })
-        //                 .then(function (value) {
-        //                     expect(value).to.equal(originalCardTitle);
-        //                     done();
-        //                 });
-        //         })
-        // });
-
-
-        // it('should delete column from the board', function (done) {
-        //     var originalCount = 0;
-        //     var newCount = 0;
-        //     var nightmare = Nightmare({ show: false })
-
-        //     nightmare
-        //         .goto(url)
-        //         .wait('.ui-sortable')
-        //         .evaluate(function () {
-        //             originalCount = document.querySelectorAll('.sortable-column').length;
-        //             return originalCount;
-        //         })
-        //         .then(function (value) {
-        //             originalCount = value;
-        //         })
-        //         .then(function () {
-        //             nightmare
-        //                 .wait('div.column-header .column-actions i')
-        //                 .click('div.column-header .column-actions i')
-        //                 .wait('div.column-header .column-actions ._actions-dropdown')
-        //                 .evaluate(function () {
-        //                     elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
-        //                     for (var i = 0; i < elements.length; i++) { 
-        //                         if (elements[i].innerHTML.startsWith('Delete')) {
-        //                             elements[i].click();
-        //                             break;
-        //                         }
-        //                     }
-        //                 })
-        //                 .evaluate(function () {
-        //                     newCount = document.querySelectorAll('.sortable-column').length;
-        //                     return newCount;
-        //                 })
-        //                 .then(function () {
-        //                     expect(newCount).to.equal(originalCount - 1);
-        //                     done();
-        //                 })
-        //         })
-        // });
+                            return cardTitle;
+                        })
+                        .then(function (value) {
+                            expect(value).to.equal(originalCardTitle);
+                            done();
+                        });
+                })
+        });
 
 
-        // it('should copy column', function (done) {
-        //     var nightmare = Nightmare({ show: true });
-        //     var originalColumnTitle = "";
+        it('should delete column from the board', function (done) {
+            var originalCount = 0;
+            var newCount = 0;
+            var nightmare = Nightmare({ show: false })
 
-        //     nightmare
-        //         .goto(url)
-        //         .wait('.ui-sortable')
-        //         .wait('div.column-header .column-actions i')
-        //         .click('div.column-header .column-actions i')
-        //         .wait('div.column-header .column-actions ._actions-dropdown')
-        //         .evaluate(function () {
-        //             var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
-        //             for (var i = 0; i < elements.length; i++) { 
-        //                 if (elements[i].innerHTML.startsWith('Copy')) {
-        //                     elements[i].click();
-        //                     break;
-        //                 }
-        //             }
-        //         })
-        //         .evaluate(()=>{
-        //             var allColumns = document.querySelectorAll('.sortable-column');
-        //             var firstColumn = allColumns[0];
-        //             originalColumnTitle = firstColumn.querySelector('.column .column-header h4').innerHTML;
-
-        //             return originalColumnTitle;
-        //         })
-        //         .then(function (value) {
-        //             originalColumnTitle = value;
-        //         })
-        //         .then(function () {
-        //             nightmare
-        //                 .evaluate(()=>{
-        //                     var allColumns = document.querySelectorAll('.sortable-column');
-        //                     var lastColumn = allColumns[allColumns.length - 1];
-        //                     var columnTitle = lastColumn.querySelector('.column .column-header h4').innerHTML;
-
-        //                     return columnTitle;
-        //                 })
-        //                 .then(function (value) {
-        //                     expect(value).to.equal(originalColumnTitle);
-        //                     done();
-        //                 });
-        //         })
-        // });
+            nightmare
+                .goto(url)
+                .wait('.ui-sortable')
+                .evaluate(function () {
+                    originalCount = document.querySelectorAll('.sortable-column').length;
+                    return originalCount;
+                })
+                .then(function (value) {
+                    originalCount = value;
+                })
+                .then(function () {
+                    nightmare
+                        .wait('div.column-header .column-actions i')
+                        .click('div.column-header .column-actions i')
+                        .wait('div.column-header .column-actions ._actions-dropdown')
+                        .evaluate(function () {
+                            elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+                            for (var i = 0; i < elements.length; i++) { 
+                                if (elements[i].innerHTML.startsWith('Delete')) {
+                                    elements[i].click();
+                                    break;
+                                }
+                            }
+                        })
+                        .evaluate(function () {
+                            newCount = document.querySelectorAll('.sortable-column').length;
+                            return newCount;
+                        })
+                        .then(function () {
+                            expect(newCount).to.equal(originalCount - 1);
+                            done();
+                        })
+                })
+        });
 
 
-        // it('should sort column by title', function (done) {
-        //     var nightmare = Nightmare({ show: true });
-        //     var indexCard1 = -1;
-        //     var indexCard2 = -1;
+        it('should copy column', function (done) {
+            var nightmare = Nightmare({ show: false });
+            var originalColumnTitle = "";
 
-        //     nightmare
-        //         .goto(url)
-        //         .wait('.card-list')
-        //         .wait('div.add-card')
-        //         .click('div.add-card')
-        //         .wait('div.add-card .add-card-input')
-        //         .type('div.add-card .add-card-input', 'card 2')
-        //         .type('body', '\u000d') // enter key
-        //         .wait('div.add-card')
-        //         .click('div.add-card')
-        //         .wait('div.add-card .add-card-input')
-        //         .type('div.add-card .add-card-input', 'card 1')
-        //         .type('body', '\u000d') // enter key
+            nightmare
+                .goto(url)
+                .wait('.ui-sortable')
+                .wait('div.column-header .column-actions i')
+                .click('div.column-header .column-actions i')
+                .wait('div.column-header .column-actions ._actions-dropdown')
+                .evaluate(function () {
+                    var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+                    for (var i = 0; i < elements.length; i++) { 
+                        if (elements[i].innerHTML.startsWith('Copy')) {
+                            elements[i].click();
+                            break;
+                        }
+                    }
+                })
+                .evaluate(()=>{
+                    var allColumns = document.querySelectorAll('.sortable-column');
+                    var firstColumn = allColumns[0];
+                    originalColumnTitle = firstColumn.querySelector('.column .column-header h4').innerHTML;
 
-        //         // Sort by title
-        //         .wait('.ui-sortable')
-        //         .wait('div.column-header .column-actions i')
-        //         .click('div.column-header .column-actions i')
-        //         .wait('div.column-header .column-actions ._actions-dropdown')
-        //         .evaluate(function () {
-        //             var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
-        //             for (var i = 0; i < elements.length; i++) { 
-        //                 if (elements[i].innerHTML.startsWith('Sort By Title')) {
-        //                     elements[i].click();
-        //                     break;
-        //                 }
-        //             }
-        //         })
-        //         .evaluate(function () {
-        //             var allCards = document.querySelectorAll('.card-list li.card');
+                    return originalColumnTitle;
+                })
+                .then(function (value) {
+                    originalColumnTitle = value;
+                })
+                .then(function () {
+                    nightmare
+                        .evaluate(()=>{
+                            var allColumns = document.querySelectorAll('.sortable-column');
+                            var lastColumn = allColumns[allColumns.length - 1];
+                            var columnTitle = lastColumn.querySelector('.column .column-header h4').innerHTML;
 
-        //             for (var i = 0; i < allCards.length; i++) { 
-        //                 var cardName = allCards[i].querySelector('.card-name span').innerHTML;
-        //                 if (cardName.startsWith('card 1')) {
-        //                     indexCard1 = i;
-        //                 }
+                            return columnTitle;
+                        })
+                        .then(function (value) {
+                            expect(value).to.equal(originalColumnTitle);
+                            done();
+                        });
+                })
+        });
 
-        //                 if (cardName.startsWith('card 2')) {
-        //                     indexCard2 = i;
-        //                 }
-        //             }
 
-        //             return [indexCard1, indexCard2];
+        it('should sort column by title', function (done) {
+            var nightmare = Nightmare({ show: false });
+            var indexCard1 = -1;
+            var indexCard2 = -1;
 
-        //         })
-        //         .then(function (value) {
-        //             indexCard1 = value[0];
-        //             indexCard2 = value[1];
+            nightmare
+                .goto(url)
+                .wait('.card-list')
+                .wait('div.add-card')
+                .click('div.add-card')
+                .wait('div.add-card .add-card-input')
+                .type('div.add-card .add-card-input', 'card 2')
+                .type('body', '\u000d') // enter key
+                .wait('div.add-card')
+                .click('div.add-card')
+                .wait('div.add-card .add-card-input')
+                .type('div.add-card .add-card-input', 'card 1')
+                .type('body', '\u000d') // enter key
 
-        //             expect(indexCard2).to.be.above(indexCard1);
-        //             done();
-        //         });
+                // Sort by title
+                .wait('.ui-sortable')
+                .wait('div.column-header .column-actions i')
+                .click('div.column-header .column-actions i')
+                .wait('div.column-header .column-actions ._actions-dropdown')
+                .evaluate(function () {
+                    var elements = document.querySelectorAll('div.column-header .column-actions ._actions-dropdown ._item');
+                    for (var i = 0; i < elements.length; i++) { 
+                        if (elements[i].innerHTML.startsWith('Sort By Title')) {
+                            elements[i].click();
+                            break;
+                        }
+                    }
+                })
+                .evaluate(function () {
+                    var allCards = document.querySelectorAll('.card-list li.card');
+
+                    for (var i = 0; i < allCards.length; i++) { 
+                        var cardName = allCards[i].querySelector('.card-name span').innerHTML;
+                        if (cardName.startsWith('card 1')) {
+                            indexCard1 = i;
+                        }
+
+                        if (cardName.startsWith('card 2')) {
+                            indexCard2 = i;
+                        }
+                    }
+
+                    return [indexCard1, indexCard2];
+
+                })
+                .then(function (value) {
+                    indexCard1 = value[0];
+                    indexCard2 = value[1];
+
+                    expect(indexCard2).to.be.above(indexCard1);
+                    done();
+                });
               
-        // });
+        });
 
 
 
-
-         //     nightmare
-        //         .goto(url)
-        //         .wait('.card-edit-btn')
-        //         .evaluate(()=>{
-        //             var elements = document.querySelectorAll('.card-edit-btn');
-        //             elements[0].click();
-        //         })
-        //         .wait('.card-effort')
-        //         .select('.card-effort', '3')
-        //         .then(function () {
-        //             nightmare
-        //                 .evaluate(function () {
-        //                     return document.querySelector('.card-effort').value;
-        //                   })
-        //                 .then(function (value) {
-        //                     expect(value).to.equal("3");
-        //                     done();
-        //                 });
-        //         })
-
-
-
-
-        it('should sort column by start date', function (done) {
-            var nightmare = Nightmare({ show: true });
+        it('should sort column by effort', function (done) {
+            var nightmare = Nightmare({ show: false });
             var indexCard1 = -1;
             var indexCard2 = -1;
             var currentCard = null;
